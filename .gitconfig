@@ -1,0 +1,49 @@
+[user]
+	name = 
+	email = 
+[alias]
+  dt = difftool --dir-diff --gui --no-prompt
+  stg = diff --cached
+	co = checkout
+	st = status
+	stu = status -u no
+	br = branch
+	dump = 'cat-file -p'
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+[merge]
+	tool = TortoiseMerge
+[diff]
+	guitool = winmerge
+	tool = winmerge
+[core]
+	editor = 'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin
+	autocrlf = true
+[credential]
+	helper = !'C:\\Users\\vlapet.TRANSAS\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
+[difftool "meld"]
+  prompt = false
+  keepBackup = false
+  keepTemporaries = false
+	path = C:/Program Files (x86)/Meld.exe
+	cmd = \"/c/Program Files (x86)/Meld/meld.exe\" $PWD/$LOCAL $PWD/$BASE $PWD/$REMOTE --output=$PWD/$MERGED
+
+[difftool "winmerge_no_esc"]
+  path = C:/Program Files (x86)/WinMerge/winmergeu.exe
+	cmd = \"C:/Program Files (x86)/WinMerge/winmergeu.exe\" -r -e -u \"$LOCAL\" \"$REMOTE\"
+
+[difftool "winmerge"]
+  prompt = false
+  keepBackup = false
+  keepTemporaries = false
+	path = C:/Program Files (x86)/WinMerge/winmergeu.exe
+	cmd = \"C:/Program Files (x86)/WinMerge/winmergeu.exe\" -r -e -u \"$LOCAL\" \"$REMOTE\"
+[mergetool "TortoiseMerge"]
+	path = C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe
+	cmd = \"C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe\" -base:\"$BASE\" -mine:\"$LOCAL\" -theirs:\"$REMOTE\" -merged:\"$MERGED\"
+[gui]
+	recentrepo = E:/{repos}/dcu
+[push]
+	default = matching
+[difftool "sourcetree"]
+	cmd = 'C:/Program Files (x86)/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
