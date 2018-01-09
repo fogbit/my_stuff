@@ -4,6 +4,7 @@
 [alias]
   brc = rev-parse --abbrev-ref HEAD
   dt = difftool --dir-diff --gui --no-prompt
+  mt = mergetool
   stg = diff --cached
 	co = checkout
 	st = status
@@ -48,6 +49,6 @@
 [gui]
 	recentrepo = E:/{repos}/dcu
 [push]
-	default = matching
+	default = current
 [difftool "sourcetree"]
 	cmd = 'C:/Program Files (x86)/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
