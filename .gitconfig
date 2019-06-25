@@ -1,21 +1,25 @@
 [user]
-	name = 
-	email = 
+	name = vlapet
+	email = Vladimir.Petrov@transas.com
 [alias]
-  brc = rev-parse --abbrev-ref HEAD
-  dt = difftool --dir-diff --gui --no-prompt
-  mt = mergetool
-  stg = diff --cached
+	brc = rev-parse --abbrev-ref HEAD
+	dt = difftool --dir-diff --gui --no-prompt
+	mt = mergetool
+	stg = diff --cached
 	co = checkout
 	st = status
 	stu = status -uno
 	br = branch
 	dump = 'cat-file -p'
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgnm = lg --no-merges
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  fp = format-patch
-  fp1 = format-patch -1
-  chp = cherry-pick
+	fp = format-patch
+	fp1 = format-patch -1
+	chp = cherry-pick
+	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	show-merge = !sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'
+  parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
 [merge]
 	tool = TortoiseMerge
 [diff]
@@ -23,32 +27,41 @@
 	tool = winmerge
 [core]
 	editor = 'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin
-	autocrlf = true
+	autocrlf = false
 [credential]
-	helper = !'C:\\Users\\vlapet.TRANSAS\\AppData\\Roaming\\GitCredStore\\git-credential-winstore.exe'
+	helper = !\"C:\\Program Files (x86)\\GitExtensions\\GitCredentialWinStore\\git-credential-winstore.exe\"
 [difftool "meld"]
-  prompt = false
-  keepBackup = false
-  keepTemporaries = false
+	prompt = false
+	keepBackup = false
+	keepTemporaries = false
 	path = C:/Program Files (x86)/Meld.exe
 	cmd = \"/c/Program Files (x86)/Meld/meld.exe\" $PWD/$LOCAL $PWD/$BASE $PWD/$REMOTE --output=$PWD/$MERGED
-
 [difftool "winmerge_no_esc"]
-  path = C:/Program Files (x86)/WinMerge/winmergeu.exe
-	cmd = \"C:/Program Files (x86)/WinMerge/winmergeu.exe\" -r -e -u \"$LOCAL\" \"$REMOTE\"
-
-[difftool "winmerge"]
-  prompt = false
-  keepBackup = false
-  keepTemporaries = false
 	path = C:/Program Files (x86)/WinMerge/winmergeu.exe
 	cmd = \"C:/Program Files (x86)/WinMerge/winmergeu.exe\" -r -e -u \"$LOCAL\" \"$REMOTE\"
+[difftool "winmerge"]
+	prompt = false
+	keepBackup = false
+	keepTemporaries = false
+	path = C:/Program Files (x86)/WinMerge/winmergeu.exe
+	cmd = \"C:/Program Files (x86)/WinMerge/winmergeu.exe\" -r -e -u \"$LOCAL\" \"$REMOTE\"
+[difftool "TortoiseDiff"]
+	cmd = \"C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe\" -base:\"$BASE\" -mine:\"$LOCAL\"
 [mergetool "TortoiseMerge"]
 	path = C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe
 	cmd = \"C:/Program Files/TortoiseGit/bin/TortoiseGitMerge.exe\" -base:\"$BASE\" -mine:\"$LOCAL\" -theirs:\"$REMOTE\" -merged:\"$MERGED\"
-[gui]
-	recentrepo = E:/{repos}/dcu
 [push]
 	default = current
 [difftool "sourcetree"]
-	cmd = 'C:/Program Files (x86)/WinMerge/WinMergeU.exe' \"$LOCAL\" \"$REMOTE\"
+	cmd = '' \"$LOCAL\" \"$REMOTE\"
+[winUpdater]
+	recentlySeenVersion = 2.22.0.windows.1
+[pull]
+	rebase = false
+[fetch]
+	prune = false
+[rebase]
+	autoStash = false
+[mergetool "sourcetree"]
+	cmd = "'' "
+	trustExitCode = true
